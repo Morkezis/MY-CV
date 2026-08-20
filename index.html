@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Gildemann — Cybersecurity Student</title>
+<meta name="description" content="German Gildemann — Cybersecurity student in Helsinki. IT support, Linux, OSINT, Microsoft Intune & Entra ID.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d11;
+    --surface: #11151b;
+    --surface-2: #161c24;
+    --line: #232b35;
+    --text: #e7eaee;
+    --muted: #8b93a1;
+    --accent: #ff7a32;
+    --accent-dim: #7a3d1c;
+    --ok: #4ade80;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(255,122,50,0.06), transparent 40%),
+      repeating-linear-gradient(transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--accent); color:#0a0d11;}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,13,17,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+  }
+  .nav-id{
+    font-family:var(--mono); font-size:13px; color:var(--muted);
+  }
+  .nav-id .dot{color:var(--ok);}
+  .nav-links{
+    display:flex; gap:24px; list-style:none; font-family:var(--mono); font-size:13px;
+  }
+  .nav-links a{color:var(--muted); text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-links{display:none;}
+  @media(min-width:640px){.nav-links{display:flex;}}
+
+  /* HERO / TERMINAL */
+  .hero{padding:72px 0 56px;}
+  .term{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+  }
+  .term-dot{width:10px; height:10px; border-radius:50%; background:#3a4250;}
+  .term-title{
+    margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  .term-body{
+    padding:24px 20px 28px;
+    font-family:var(--mono);
+    font-size:14px;
+    min-height:210px;
+  }
+  @media(min-width:640px){ .term-body{font-size:16px;} }
+  .term-line{margin-bottom:6px; white-space:pre-wrap;}
+  .prompt{color:var(--ok);}
+  .path{color:#6b93d6;}
+  .out{color:var(--text);}
+  .out-muted{color:var(--muted);}
+  .out-accent{color:var(--accent); font-weight:700;}
+  .cursor{
+    display:inline-block; width:8px; height:1em; background:var(--accent);
+    vertical-align:text-bottom; margin-left:2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .cursor{animation:none;}
+  }
+
+  .hero-tags{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;
+  }
+  .tag{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    border:1px solid var(--line); padding:5px 10px; border-radius:5px;
+  }
+
+  /* SECTION SCAFFOLD */
+  section{padding:52px 0;}
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:"$"; color:var(--muted);}
+  .eyebrow::after{
+    content:""; flex:1; height:1px; background:var(--line);
+  }
+  h2.title{
+    font-family:var(--mono); font-weight:700; font-size:22px;
+    margin-bottom:20px; letter-spacing:-0.01em;
+  }
+
+  /* PROFILE */
+  .profile-text{
+    font-size:16px; color:#c9cdd4; max-width:640px;
+  }
+  .profile-text strong{color:var(--text); font-weight:600;}
+
+  /* EXPERIENCE / EDUCATION */
+  .entry{
+    border-left:2px solid var(--line);
+    padding-left:20px;
+    margin-bottom:28px;
+    position:relative;
+  }
+  .entry::before{
+    content:""; position:absolute; left:-6px; top:4px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent);
+  }
+  .entry-head{
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px;
+    margin-bottom:4px;
+  }
+  .entry-role{font-weight:700; font-size:16px;}
+  .entry-org{color:var(--accent); font-weight:500;}
+  .entry-date{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    white-space:nowrap;
+  }
+  .entry ul{list-style:none; margin-top:10px;}
+  .entry li{
+    position:relative; padding-left:18px; color:#b7bcc4; margin-bottom:6px; font-size:15px;
+  }
+  .entry li::before{
+    content:"›"; position:absolute; left:0; color:var(--accent);
+  }
+
+  /* SKILLS */
+  .skill-group{margin-bottom:22px;}
+  .skill-label{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px;
+  }
+  .flags{display:flex; flex-wrap:wrap; gap:8px;}
+  .flag{
+    font-family:var(--mono); font-size:13px;
+    background:var(--surface); border:1px solid var(--line);
+    padding:6px 10px; border-radius:5px; color:#d7dae0;
+    transition:border-color .15s, color .15s;
+  }
+  .flag:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* LANGUAGES */
+  .lang-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+    gap:12px;
+  }
+  .lang-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:12px 14px;
+  }
+  .lang-name{font-weight:600; font-size:14px;}
+  .lang-level{font-family:var(--mono); font-size:11px; color:var(--ok);}
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:28px; text-align:center;
+  }
+  .contact-box p{color:var(--muted); margin-bottom:20px; font-size:15px;}
+  .contact-links{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+  }
+  .contact-links a{
+    font-family:var(--mono); font-size:13px; text-decoration:none;
+    background:var(--bg); border:1px solid var(--line); color:var(--text);
+    padding:10px 16px; border-radius:6px; transition:.15s;
+  }
+  .contact-links a:hover{border-color:var(--accent); color:var(--accent);}
+
+  footer{
+    padding:28px 0 48px; text-align:center;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-id"><span class="dot">●</span> german@helsinki</div>
+    <ul class="nav-links">
+      <li><a href="#profile">profile</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar">
+        <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+        <span class="term-title">germangildemann — zsh</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">Cybersecurity Student</span>
+      <span class="tag">Kali Linux</span>
+      <span class="tag">Intune / Entra ID</span>
+      <span class="tag">OSINT</span>
+      <span class="tag">Helsinki, FI</span>
+    </div>
+  </div>
+</header>
+
+<section id="profile">
+  <div class="wrap">
+    <div class="eyebrow">cat profile.txt</div>
+    <p class="profile-text">
+      Final-year <strong>Cybersecurity</strong> student at Business College Helsinki with hands-on
+      experience in IT support, system administration, and OSINT investigation. Comfortable working
+      across <strong>Windows, Linux, and cloud identity platforms</strong>, with a strong interest in
+      security tooling and automation. Currently seeking a final internship to complete my diploma and
+      gain practical exposure to a security team.
+    </p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">tail -f experience.log</div>
+    <h2 class="title">Experience</h2>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div><span class="entry-role">IT Support Technician</span> · <span class="entry-org">TKV Finland</span></div>
+        <div class="entry-date">Oct — Dec 2025</div>
+      </div>
+      <ul>
+        <li>Installed and configured operating systems on dozens of used laptops ahead of resale</li>
+        <li>Tested, diagnosed, and repaired hardware faults, and prepared devices for quality-checked resale</li>
+      </ul>
+    </div>
+
+    <div class="eyebrow" style="margin-top:44px;">cat education.log</div>
+    <div class="entry">
+      <div class="entry-head">
+        <div><span class="entry-role">Cybersecurity</span> · <span class="entry-org">Business College Helsinki</span></div>
+        <div class="entry-date">2024 — Present</div>
+      </div>
+      <ul>
+        <li>Final year of study; coursework includes Microsoft Intune / Entra ID device and identity management</li>
+        <li>Currently seeking a final internship placement to complete diploma requirements</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">./skills --list</div>
+    <h2 class="title">Technical Skills</h2>
+
+    <div class="skill-group">
+      <div class="skill-label">Operating Systems</div>
+      <div class="flags">
+        <span class="flag">Windows install & imaging</span>
+        <span class="flag">Linux / Kali Linux</span>
+        <span class="flag">Hyper-V VM administration</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">Cloud & Identity</div>
+      <div class="flags">
+        <span class="flag">Microsoft Intune</span>
+        <span class="flag">Entra ID</span>
+        <span class="flag">Microsoft 365 admin</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">Security & OSINT</div>
+      <div class="flags">
+        <span class="flag">Username / footprint investigation</span>
+        <span class="flag">Maigret</span>
+        <span class="flag">Recon methodology</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-label">IT Support</div>
+      <div class="flags">
+        <span class="flag">Hardware diagnostics</span>
+        <span class="flag">Repair & refurbishment</span>
+        <span class="flag">Technical documentation</span>
+      </div>
+    </div>
+
+    <div class="skill-group" style="margin-bottom:0;">
+      <div class="skill-label">Languages</div>
+      <div class="lang-grid">
+        <div class="lang-card"><div class="lang-name">English</div><div class="lang-level">fluent</div></div>
+        <div class="lang-card"><div class="lang-name">Finnish</div><div class="lang-level">fluent</div></div>
+        <div class="lang-card"><div class="lang-name">Estonian</div><div class="lang-level">fluent</div></div>
+        <div class="lang-card"><div class="lang-name">Russian</div><div class="lang-level">fluent</div></div>
+        <div class="lang-card"><div class="lang-name">Chinese</div><div class="lang-level">HSK 1</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="eyebrow">./contact --reach-out</div>
+    <div class="contact-box">
+      <p>Open to internship opportunities in cybersecurity, IT support, and systems administration.</p>
+      <div class="contact-links">
+        <a href="mailto:german.gildemann@gmail.com">german.gildemann@gmail.com</a>
+        <a href="tel:+358400489797">+358 40 048 9797</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  built by german gildemann · helsinki, finland
+</footer>
+
+<script>
+(function(){
+  var lines = [
+    {p:"visitor@web", path:"~", cmd:"whoami"},
+    {out:"German Gildemann", accent:true},
+    {p:"visitor@web", path:"~", cmd:"cat role.txt"},
+    {out:"Cybersecurity Student — Business College Helsinki"},
+    {p:"visitor@web", path:"~", cmd:"status --current"},
+    {out:"Seeking final internship to complete diploma", muted:true}
+  ];
+
+  var body = document.getElementById('termBody');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    body.innerHTML = '';
+    lines.forEach(function(l){
+      var div = document.createElement('div');
+      div.className = 'term-line';
+      if(l.cmd){
+        div.innerHTML = '<span class="prompt">'+l.p+'</span>:<span class="path">'+l.path+'</span>$ '+l.cmd;
+      } else {
+        div.innerHTML = '<span class="'+(l.accent?'out-accent':(l.muted?'out-muted':'out'))+'">'+l.out+'</span>';
+      }
+      body.appendChild(div);
+    });
+    var cur = document.createElement('span');
+    cur.className = 'cursor';
+    body.appendChild(cur);
+  }
+
+  if(reduced){
+    renderStatic();
+    return;
+  }
+
+  var li = 0;
+  function typeLine(){
+    if(li >= lines.length){
+      var cur = document.createElement('span');
+      cur.className = 'cursor';
+      body.appendChild(cur);
+      return;
+    }
+    var l = lines[li];
+    var div = document.createElement('div');
+    div.className = 'term-line';
+    body.appendChild(div);
+
+    if(l.cmd){
+      var prefix = '<span class="prompt">'+l.p+'</span>:<span class="path">'+l.path+'</span>$ ';
+      var full = l.cmd;
+      var i = 0;
+      var speed = 28;
+      (function type(){
+        div.innerHTML = prefix + full.slice(0,i) + '<span class="cursor"></span>';
+        if(i <= full.length){
+          i++;
+          setTimeout(type, speed);
+        } else {
+          li++;
+          setTimeout(typeLine, 180);
+        }
+      })();
+    } else {
+      div.innerHTML = '<span class="'+(l.accent?'out-accent':(l.muted?'out-muted':'out'))+'">'+l.out+'</span>';
+      li++;
+      setTimeout(typeLine, 220);
+    }
+  }
+  typeLine();
+})();
+</script>
+
+</body>
+</html>
